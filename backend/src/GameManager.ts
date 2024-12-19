@@ -1,4 +1,6 @@
+import { WebSocket } from 'ws'
 import { INIT_GAME, MOVE } from "./message";
+import { Game } from "./Game";
 
 
 export class GameManager {
@@ -20,7 +22,7 @@ export class GameManager {
         this.users = this.users.filter(user => user != socket);
     }
 
-    private handleMassage(socket: WebSocket){
+    private addHandler(socket: WebSocket){
         socket.on("message", (data: any) => {
             const message = JSON.parse(data.type);
 
