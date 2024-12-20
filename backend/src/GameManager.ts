@@ -16,6 +16,7 @@ export class GameManager {
 
     addUser(socket: WebSocket){
         this.users.push(socket);
+        this.addHandler(socket)
     }
 
     removeUser(socket: WebSocket){
@@ -24,9 +25,10 @@ export class GameManager {
 
     private addHandler(socket: WebSocket){
         socket.on("message", (data: any) => {
-            const message = JSON.parse(data.type);
-
-            if(message === INIT_GAME){
+            const message = JSON.parse(data);
+            const messageType = message.type;
+            console.log(messageType)
+            if(messageType === INIT_GAME){
                 if(this.pendingUser){
                     const game = new Game(this.pendingUser, socket);
                     this.games.push(game);
@@ -37,7 +39,7 @@ export class GameManager {
                 }
             }
 
-            if(message === MOVE){
+            if(messageType === MOVE){
                 const game = this.games.find(game => game.player1 === socket || game.player2 === socket);
                 game?.makeMove(socket, message.move);
             }
