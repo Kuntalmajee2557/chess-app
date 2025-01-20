@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Chessboard from '../components/Chessboard'
 import { Chess, Color, PieceSymbol, Square } from 'chess.js'
+import { useSocket} from '../hooks/useSocket'
 
 
 function Game() {
@@ -9,7 +10,8 @@ function Game() {
 
     // useEffect(() => {
     //     setChess(() => {
-            
+    //         const connect = useSocket();
+    //         return chess
     //     })
     // },[])
 

@@ -32,64 +32,45 @@ export class Game {
         from: string,
         to: string
     }) {
-        console.log("move is here " + move)
         // validation
         // is it this users move
         if (this.moves.length % 2 === 0 && socket != this.player1) {
-            console.log("not white's move")
             return;
         }
         if (this.moves.length % 2 === 1 && socket != this.player2) {
-            console.log("not black's move")
-
             return;
         }
         // is the move valid??
         try {
-            console.log("here3")
-            console.log(this.moves.length)
-            
             this.board.move(move);
             this.moves.push(move);
-            console.log("here4")
-            console.log(this.moves.length)
-
-
         } catch (e) {
             console.log(e)
             return
         }
 
-        console.log("here5")
-
         if (this.board.isGameOver()) {
-            console.log("here6")
-
             this.player1.emit(JSON.stringify({
                 type: GAME_OVER,
                 payload: {
-                    winner: this.board.turn() == "w" ? "white" : "black" 
+                    winner: this.board.turn() == "w" ? "white" : "black"
                 }
             }))
             this.player2.emit(JSON.stringify({
                 type: GAME_OVER,
                 payload: {
-                    winner: this.board.turn() == "w" ? "white" : "black" 
+                    winner: this.board.turn() == "w" ? "white" : "black"
                 }
             }))
         }
 
-        if(this.moves.length % 2 === 0){
-            console.log("here7")
-
+        if (this.moves.length % 2 === 0) {
             this.player1.send(JSON.stringify({
                 type: MOVE,
                 payload: move
             }))
         }
-        else{
-            console.log("here8")
-
+        else {
             this.player2.send(JSON.stringify({
                 type: MOVE,
                 payload: move
