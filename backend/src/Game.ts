@@ -17,13 +17,15 @@ export class Game {
         this.player1.send(JSON.stringify({
             type: INIT_GAME,
             payload: {
-                color: "white"
+                color: "white",
+                chess: this.board
             }
         }))
         this.player2.send(JSON.stringify({
             type: INIT_GAME,
             payload: {
-                color: "black"
+                color: "black",
+                chess: this.board
             }
         }))
     }

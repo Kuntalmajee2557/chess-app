@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSocket } from '../hooks/useSocket';
 
 function Home() {
+    
+    
     const navigate = useNavigate()
   return (
     <div className='bg-slate-800 h-screen flex flex-col justify-center items-center'>
