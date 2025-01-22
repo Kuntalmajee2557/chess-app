@@ -41,6 +41,12 @@ function Chessboard({ board, setBoard, chess, turn, socket }: boardProps) {
     }
   }, [from, chess])
 
+  useEffect(() => {
+    if(turn && turn[0] !== chess?.turn()){
+      chess.turn() === "w" ? chess.load(chess.fen().replace('w' , 'b')) : chess.load(chess.fen().replace('b' , 'w')) 
+    }
+  }, [turn])
+
   //print possible moves
   useEffect(() => {
     console.log(possibleMoves)
@@ -60,6 +66,7 @@ function Chessboard({ board, setBoard, chess, turn, socket }: boardProps) {
       })
 
       if (validmove) {
+        chess.turn() === "b" ? chess.load(chess.fen().replace('w' , 'b')) : chess.load(chess.fen().replace('b' , 'w'))
         socket?.send(JSON.stringify({
           type: "move",
           move: {
